@@ -1,12 +1,14 @@
-import { useState } from 'react'
-import SignUp from './pages/SignUp/SignUp'
+import React from 'react'
+import AppRoutes from './routes/AppRoutes'
+import {ToastContainer} from "react-toastify"
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <SignUp/>
+    <ToastContainer autoClose={1900}/>
+     <AppRoutes/>
     </>
   )
 }

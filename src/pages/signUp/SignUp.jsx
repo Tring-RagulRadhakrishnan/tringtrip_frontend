@@ -7,92 +7,105 @@ import {
   IoIosPhonePortrait,
 } from "../../utils/icons.jsx";
 import "./SignUp.css";
-import {useNavigate} from 'react-router-dom'
+import { validation } from "../../utils/validations.js";
 import travelImg from "../../assets/Auth_img.jpg";
 import Input from "../../components/common/Input";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
+import Button from "../../components/common/Button.jsx";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const [createUser, { loading, error }] = useMutation(CREATE_USER, {
+    fetchPolicy: "no-cache",
+  });
+  const submit = async (formData) => {
+    console.log(
+      `${formData?.name} + ${formData?.email} + ${formData?.phone_number} + ${formData?.password}`
+    );
 
-  const submit = async (data) => {
-    console.log("hi");
+    try {
+      const response = await createUser({
+        variables: {
+          name: formData.name,
+          email: formData.email,
+          phone_number: formData.phone_number,
+          password: formData.password,
+        },
+      });
 
-
+      console.log(response.data.createUser);
+      if (response.data.createUser) {
+        toast.success("User Register Successfully");
+        navigate("/signin");
+      }
+    } catch (err) {
+      console.log("Error from handle registration", err);
+    }
   };
+
   return (
-    <div className="signup-outer-con">
-      <div className="signup-con1">
-        <img src={travelImg} alt="" />
-      </div>
-      <div className="signup-con2">
-        <div className="signup-form-con">
-          <h1>Create Account</h1>
-          <form className="signup-form" onSubmit={handleSubmit(submit)}>
-            <div className="form-body">
-              <Input
-                label="Name"
-                type="text"
-                placeholder="Name"
-                register={register}
-                name="name"
-                error={errors.name}
-              />
-              <FaUser />
-            </div>
-            <div className="form-body">
-              <Input
-                label="Email"
-                type="email"
-                placeholder="Email"
-                register={register}
-                name="email"
-                error={errors.email}
-              />
-              <AiOutlineMail />
-            </div>
-            <div className="form-body">
-              <Input
-                label="Phone Number"
-                type="tel"
-                placeholder="Phone Number"
-                register={register}
-                name="phone_number"
-                error={errors.phone_number}
-              />
-              <IoIosPhonePortrait />
-            </div>
-            <div className="form-body">
-              <Input
-                label="Password"
-                type="password"
-                placeholder="Password"
-                register={register}
-                name="password"
-                error={errors.password}
-              />
-              <MdLock />
-            </div>
-            <p className="have-account">
-              Already have an Account ?
-              <span
-                onClick={() => {
-                  navigate("/signin");
-                }}
-              >
-                Sign In
-              </span>
-            </p>
-            <button type="submit">Sign Up</button>
-          </form>
+    <div className="signup-form-con">
+      <h1>Create Account</h1>
+      <form className="signup-form" onSubmit={handleSubmit(submit)}>
+        <div className="form-body">
+          <Input
+            label="Name"
+            type="text"
+            placeholder="Name"
+            register={(name) => register(name, validation.name)}
+            name="name"
+            error={errors.name}
+          />
+          <FaUser />
         </div>
-      </div>
+        <div className="form-body">
+          <Input
+            label="Email"
+            type="email"
+            placeholder="Email"
+            register={(email) => register(email, validation.email)}
+            name="email"
+            error={errors.email}
+          />
+          <AiOutlineMail />
+        </div>
+        <div className="form-body">
+          <Input
+            label="Phone Number"
+            type="tel"
+            placeholder="Phone Number"
+            register={(phone_number) =>
+              register(phone_number, validation.phone_number)
+            }
+            name="phone_number"
+            error={errors.phone_number}
+          />
+          <IoIosPhonePortrait />
+        </div>
+        <div className="form-body password-input">
+          <Input
+            label="Password"
+            type="password"
+            placeholder="Password"
+            register={(password) => register(password, validation.password)}
+            name="password"
+            error={errors.password}
+          />
+          <MdLock />
+        </div>
+        <Button message="Sign Up" type="submit" />
+        <p className="have-account">
+          Already have an Account ?<span onClick={() => {}}>Sign In</span>
+        </p>
+      </form>
     </div>
   );
 };
