@@ -8,7 +8,6 @@ import {
 } from "../../utils/icons.jsx";
 import "./SignUp.css";
 import { validation } from "../../utils/validations.js";
-import travelImg from "../../assets/Auth_img.jpg";
 import Input from "../../components/common/Input";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";

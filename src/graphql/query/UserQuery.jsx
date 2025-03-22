@@ -6,8 +6,6 @@ export const GET_USER=gql`
         getUser(email:$email,password:$password){
         user_id
         name
-            
-            
         }
     }
 `

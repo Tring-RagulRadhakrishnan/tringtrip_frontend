@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   AiOutlineMail,
-  FaUser,
   MdLock,
-  IoIosPhonePortrait,
 } from "../../utils/icons.jsx";
-import travelImg from "../../assets/Auth_img.jpg";
 import Input from "../../components/common/Input";
 import { useLazyQuery } from "@apollo/client";
 import Button from "../../components/common/Button.jsx";
@@ -56,7 +53,7 @@ const SignIn = () => {
 
   return (
     <div className="signup-form-con">
-      <h1>Sign In</h1>
+      <h1 className="auth-title">Sign In</h1>
       <form className="signup-form" onSubmit={handleSubmit(submit)}>
         <div className="form-body">
           <Input
