@@ -1,7 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const CardContainer = ({locationCard,category}) => {
-    console.log(">>>>>>>>>>>>>>. card container",locationCard);
+const LoctionCard = ({locationCard,category}) => {
+    // console.log(">>>>>>>>>>>>>>. card container",locationCard);
+    const navigate = useNavigate();
+  const handleCard = (card)=>{
+      navigate(`/package/${card.location}`,{state:card})
+  }
+
 
   return (
     <div className="home-package-outer-container">
@@ -11,7 +17,7 @@ const CardContainer = ({locationCard,category}) => {
             <div
               key={card.tp_id}
               className="home-package-card"
-            //   onClick={() => handleCard(card)}
+               onClick={() => handleCard(card)}
             >
               <img src={card.image} alt={card.location} />
               <p>{card.location}</p>
@@ -22,4 +28,4 @@ const CardContainer = ({locationCard,category}) => {
   )
 }
 
-export default CardContainer
+export default LoctionCard

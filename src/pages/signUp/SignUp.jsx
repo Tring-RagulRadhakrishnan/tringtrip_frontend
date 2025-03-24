@@ -5,7 +5,7 @@ import {
   FaUser,
   MdLock,
   IoIosPhonePortrait,
-} from "../../utils/icons.jsx";
+} from '../../utils/Icons.jsx';
 import "./SignUp.css";
 import { validation } from "../../utils/validations.js";
 import Input from "../../components/common/Input";
@@ -22,13 +22,17 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const [createUser, { loading, error }] = useMutation(CREATE_USER, {
-    fetchPolicy: "no-cache",
+  const [createUser] = useMutation(CREATE_USER, {
+    fetchPolicy: "no-cache",onError:(error)=>{
+      if(error.message.includes("user is already found")){
+        toast.error("user is already found")
+      }
+    }
   });
   const submit = async (formData) => {
-    console.log(
-      `${formData?.name} + ${formData?.email} + ${formData?.phone_number} + ${formData?.password}`
-    );
+    // console.log(
+    //   `${formData?.name} + ${formData?.email} + ${formData?.phone_number} + ${formData?.password}`
+    // );
 
     try {
       const response = await createUser({
@@ -52,7 +56,7 @@ const SignUp = () => {
 
   return (
     <div className="signup-form-con">
-      <h1>Create Account</h1>
+      <h1 className="auth-title">Create Account</h1>
       <form className="signup-form" onSubmit={handleSubmit(submit)}>
         <div className="form-body">
           <Input

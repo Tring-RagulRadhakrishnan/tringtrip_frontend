@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import {
   AiOutlineMail,
   MdLock,
-} from "../../utils/icons.jsx";
+} from "../../utils/Icons.jsx";
 import Input from "../../components/common/Input";
 import { useLazyQuery } from "@apollo/client";
 import Button from "../../components/common/Button.jsx";
-import { GET_USER } from "../../graphql/query/UserQuery.jsx";
+import { LOGIN } from "../../graphql/query/UserQuery.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
-  const [getUser, { loading, error }] = useLazyQuery(GET_USER, {
+  const [login] = useLazyQuery(LOGIN, {
     fetchPolicy: "no-cache",
     onError: (error) => {
       if (error.message.includes("User Not Found")) {
@@ -35,14 +35,14 @@ const SignIn = () => {
 
   const submit = async (formData) => {
     try {
-      const response = await getUser({
+      const response = await login({
         variables: {
           email: formData.email,
           password: formData.password,
         },
       });
 
-      if (response.data?.getUser) {
+      if (response.data?.login) {
         toast.success("User Login Successfully");
         navigate("/home");
       }

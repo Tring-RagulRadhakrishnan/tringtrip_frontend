@@ -4,6 +4,7 @@ import SignUp from "../pages/signUp/SignUp";
 import SignIn from "../pages/signIn/SignIn";
 import Home from "../pages/home/Home";
 import Auth from "../components/auth/Auth";
+import Package from "../pages/package/Package";
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,8 @@ const AppRoutes = () => {
       <Route path="/signin" element={<SignIn />} />
       </Route>
       <Route path="/home" element={<Home />} />
+      <Route path="/package/:location" element={<Package />} />
+      
       </Routes>
     </>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 
-import CardContainer from "../../components/common/LoctionCard";
 import Faqs from "../../components/faqs/Faqs";
 import { useQuery } from "@apollo/client";
 import {
@@ -8,16 +7,9 @@ import {
   GET_INTERNATIONAL_PACKAGE,
   GET_VISA_PACKAGE,
 } from "../../graphql/query/LocationQuery";
-import {
-  FaPaperPlane,
-  LiaUserEditSolid,
-  MdFreeCancellation,
-  GrUpdate,
-  RiRefund2Line,
-  MdModeOfTravel,
-} from "../../utils/Icons";
 import "./Home.css";
 import { GET_FAQS } from "../../graphql/query/FaqsQuery";
+import LoctionCard from "../../components/cards/LoctionCard";
 
 const Home = () => {
   const { data: bestpack } = useQuery(GET_BEST_PACKAGE, {
@@ -33,15 +25,15 @@ const Home = () => {
 
   return (
     <div className="home-outer-container">
-      <CardContainer
+      <LoctionCard
         locationCard={bestpack?.getBestPackage}
         category="BEST PACKAGES"
       />
-      <CardContainer
+      <LoctionCard
         locationCard={visaFreePack?.getVisaFreePackage}
         category="VISA FREE PACKAGES"
       />
-      <CardContainer
+      <LoctionCard
         locationCard={InternationalPack?.getInternationalPackage}
         category="INTERNATIONAL PACKAGES"
       />

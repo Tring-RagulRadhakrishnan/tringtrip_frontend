@@ -6,6 +6,8 @@ query{
         location
         tp_id
         image
+        cover_image
+        subtitle
     }
 }`
 
@@ -15,6 +17,8 @@ query{
         location
         tp_id
         image
+        cover_image
+        subtitle
     }
 }`
 
@@ -24,5 +28,7 @@ query{
         location
         tp_id
         image
+        cover_image
+        subtitle
     }
 }`
