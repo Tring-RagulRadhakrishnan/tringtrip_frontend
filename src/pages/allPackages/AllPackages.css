@@ -1,0 +1,24 @@
+.all-package-section{
+    padding: 40px 80px;
+}
+.all-packages-title{
+    text-align: center;
+}
+.all-package-nav-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    /* background-color: yellowgreen; */
+    justify-content: center;
+    margin-top: 20px;
+    column-gap: 45px;
+}
+.all-package-nav-container>svg{
+    font-size: 35px;
+    color: #45abd2;
+}
+.all-package-nav-container>svg:active{
+    background-color: #45abd2;
+    color: #fff;
+    border-radius: 50%;
+}
