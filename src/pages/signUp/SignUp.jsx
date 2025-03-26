@@ -14,6 +14,7 @@ import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
 import Button from "../../components/common/Button.jsx";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import bcrypt from "bcryptjs";
 
 const SignUp = () => {
   const {
@@ -30,17 +31,16 @@ const SignUp = () => {
     }
   });
   const submit = async (formData) => {
-    // console.log(
-    //   `${formData?.name} + ${formData?.email} + ${formData?.phone_number} + ${formData?.password}`
-    // );
-
+    const hashedPassword = await bcrypt.hash(formData.password, 5);
+    console.log("Hashed Password:", hashedPassword);
+  
     try {
       const response = await createUser({
         variables: {
           name: formData.name,
           email: formData.email,
           phone_number: formData.phone_number,
-          password: formData.password,
+          password: hashedPassword,
         },
       });
 
@@ -104,7 +104,7 @@ const SignUp = () => {
           />
           <MdLock />
         </div>
-        <Button message="Sign Up" type="submit" />
+        <Button message="Sign Up" type="submit" className="auth-button"/>
         <p className="have-account">
           Already have an Account ?<span onClick={() => {}}>Sign In</span>
         </p>

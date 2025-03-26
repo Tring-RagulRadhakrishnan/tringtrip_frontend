@@ -7,6 +7,8 @@ import Auth from "../components/auth/Auth";
 import Package from "../pages/package/Package";
 import AllPackages from "../pages/allPackages/AllPackages";
 import AddPackage from "../pages/addPackage/AddPackage";
+import BookPackage from "../pages/bookPackage/BookPackage";
+import StripePayment from "../components/StripePayment";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +22,8 @@ const AppRoutes = () => {
         <Route path="/package/:location" element={<Package />} />
         <Route path="/allpackages" element={<AllPackages />} />
         <Route path="/addpackage" element={<AddPackage />} />
+        <Route path="/bookpackage" element={<BookPackage />} />
+        <Route path="/payment" element={<StripePayment />} />
       </Routes>
     </>
   );

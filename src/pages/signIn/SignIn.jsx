@@ -10,6 +10,7 @@ import Button from "../../components/common/Button.jsx";
 import { LOGIN } from "../../graphql/query/UserQuery.jsx";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 const SignIn = () => {
   const {
@@ -35,6 +36,8 @@ const SignIn = () => {
 
   const submit = async (formData) => {
     try {
+      const hashedPassword = await bcrypt.hash(formData.password, 5);
+      console.log("Hashed Password:", hashedPassword);
       const response = await login({
         variables: {
           email: formData.email,

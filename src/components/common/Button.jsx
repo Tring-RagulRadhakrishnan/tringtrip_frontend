@@ -1,9 +1,11 @@
 import React from "react";
 import '../../styles/global.css'
 
-const Button = ({type,message})=>{
+const Button = ({type,message,onClick})=>{
     return(
-        <button className="common-button" type={type}>{message}</button>
+        <div className="button-container">
+        <button className="common-button" type={type} onClick={onClick}>{message}</button>
+        </div>
     )
 }
 export default Button;

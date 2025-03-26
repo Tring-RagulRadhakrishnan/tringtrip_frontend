@@ -8,12 +8,43 @@ h1{
   margin-right: auto;
 }
 
+.input-field{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  position: relative;
+}
+label{
+  font-size: 14px;
+  font-family: Poppins;
+  font-weight: 500;
+}
+.input-field>input{
+  height: 40px;
+  width: 77%;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  padding-left: 35px;
+}
+.input-field>input:focus{
+  outline: none;
+  border-color: #45abd2;
+  box-shadow: 0 0 5px rgba(69, 171, 210, 0.5);
+}
+.button-container{
+  width: 100%;
+  display: flex;
+    justify-content: center;
+}
 .common-button {
     padding: 12px 20px;
-    margin: 0px 60px;
+    /* margin: 0px 60px; */
+    
     font-size: 16px;
+    width: 85%;
     font-weight: bold;
-    width: 100%;
     color: #fff;
     background-color: #45abd2;
     border: none;

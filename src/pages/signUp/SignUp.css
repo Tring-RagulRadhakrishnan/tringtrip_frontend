@@ -45,31 +45,7 @@ body{
     margin-left: 60px;
     position: relative;
 }
-.input-field{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    position: relative;
-}
-.input-field>label{
-    font-size: 14px;
-    font-family: Poppins;
-    font-weight: 500;
-}
-.input-field>input{
-    height: 40px;
-    width: 80%;
-    border: 0.5px solid gray;
-    border-radius: 5px;
-    padding-left: 35px;
-}
-.input-field>input:focus{
-    outline: none;
-    border-color: #45abd2;
-    box-shadow: 0 0 5px rgba(69, 171, 210, 0.5);
-}
+
 .form-body > svg {
     position: absolute;
     color: #45abd2;

@@ -1,19 +1,22 @@
-import React from 'react';
-import Button from '../common/Button';
-
+import React from "react";
+import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
 
 const PackageCard = ({ pack }) => {
+  const navigate = useNavigate();
+
+  const handlePack = (pkg) => {
+    navigate("/bookpackage", { state: pkg });
+  };
   return (
     <div className="packages-container">
       {pack?.map((pkg) => {
-
         return (
           <div className="package-card" key={pkg.package_id}>
             <img
               src={pkg.package_img}
               alt={pkg.title}
               className="package-card-img"
-              
             />
             <div className="package-card-content">
               <div className="package-card-title-container">
@@ -29,7 +32,11 @@ const PackageCard = ({ pack }) => {
               </ul>
 
               <div className="package-card-button-container">
-                <Button message={`₹${pkg.price}`} type="button" />
+                <Button
+                  message={`₹${pkg.price} / person`}
+                  type="button"
+                  onClick={() => handlePack(pkg)}
+                />
               </div>
             </div>
           </div>
