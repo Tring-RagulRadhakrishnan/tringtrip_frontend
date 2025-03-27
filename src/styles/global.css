@@ -1,6 +1,8 @@
 h1{
-  color: #45abd2;
-  text-shadow: 1px 1px 2px #000000;
+  /* color: #45abd2;
+  text-shadow: 1px 1px 2px #000000; */
+  color: black;
+  font-weight: bold;
   
 }
 .auth-title{
@@ -61,4 +63,6 @@ label{
     margin-bottom: 0px;
     margin-top: 5px;
   }
-  
+  svg{
+    color: #45abd2;
+  }

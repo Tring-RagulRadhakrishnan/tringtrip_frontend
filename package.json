@@ -13,6 +13,7 @@
     "@apollo/client": "^3.13.4",
     "@bytescale/upload-widget-react": "^4.19.0",
     "@fontsource/poppins": "^5.2.5",
+    "@lottiefiles/dotlottie-react": "^0.13.2",
     "@stripe/react-stripe-js": "^3.5.1",
     "@stripe/stripe-js": "^6.1.0",
     "axios": "^1.8.4",

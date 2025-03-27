@@ -1,6 +1,44 @@
 .header-container{
     position: sticky;
     top: 0px;
+    height: 50px;
     z-index: 10;
-    background-color: aliceblue;
+    background-color: rgb(98, 160, 214);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-logo-container{
+    display: flex;
+    margin-left: 35px;
+}
+.header-logo{
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0px;
+}
+.header-logo-2{
+    color: #fff;
+}
+.search-bar-container{
+    position: relative;
+}
+.search-bar-container>svg{
+    position: absolute;
+    font-size: 20px;
+    top: 6px;
+    left: 3px;
+}
+.search-bar-container>input{
+    height: 30px;
+    padding-left: 30px;
+    border-radius: 5px;
+    border: none;
+    width: 230px;
+}
+.search-bar-container>input:focus{
+    outline: none;
+    border-color: #545a5c;
+    box-shadow: 0 0 5px rgba(4, 5, 5, 0.5);
 }

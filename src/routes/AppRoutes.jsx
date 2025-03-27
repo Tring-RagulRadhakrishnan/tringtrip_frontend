@@ -9,6 +9,7 @@ import AllPackages from "../pages/allPackages/AllPackages";
 import AddPackage from "../pages/addPackage/AddPackage";
 import BookPackage from "../pages/bookPackage/BookPackage";
 import StripePayment from "../components/StripePayment";
+import SearchPackage from "../components/searchPackage/SearchPackage";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/allpackages" element={<AllPackages />} />
         <Route path="/addpackage" element={<AddPackage />} />
         <Route path="/bookpackage" element={<BookPackage />} />
+        <Route path="/searchpackage" element={<SearchPackage />} />
         <Route path="/payment" element={<StripePayment />} />
       </Routes>
     </>

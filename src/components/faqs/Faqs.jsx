@@ -10,7 +10,9 @@ import {
 import "./Faqs.css";
 
 const Faqs = ({ faqs }) => {
-  console.log(">>>>>>>>>>>>>>>>", faqs);
+  // console.log(">>>>>>>>>>>>>>>>", faqs);
+
+  const icons = [<FaPaperPlane/>,<LiaUserEditSolid/>,<MdFreeCancellation/>,<GrUpdate/>,<RiRefund2Line/>,<MdModeOfTravel/>]
 
   return (
     <div className="faq-outer-container">
@@ -20,9 +22,9 @@ const Faqs = ({ faqs }) => {
         <p>Have any questions? We're here to assist you.</p>
       </div>
       <div className="faq-content-body">
-        {faqs?.map((faq) => (
+        {faqs?.map((faq,index) => (
           <div>
-            <FaPaperPlane className="faq-logo" />
+            {icons[index]}
             <h2 className="faq-content-title">{faq.faq_title}</h2>
             <p>{faq.content}</p>
           </div>

@@ -8,7 +8,7 @@ import PackageCard from "../../components/cards/PackageCard";
 
 const Package = () => {
   const location = useLocation();
-  const tourist_place = location.state;
+  const tourist_place = location?.state;
 
   const { data, loading, error } = useQuery(GET_PACKAGE_LOCATION, {
     variables: { location: tourist_place?.location },

@@ -1,17 +1,19 @@
-import React from 'react'
-import AppRoutes from './routes/AppRoutes'
-import {ToastContainer} from "react-toastify"
-import Layout from './components/Layout'
+import React, { createContext, useState } from "react";
+import Layout from "./components/Layout";
+import { ToastContainer } from "react-toastify";
 
+export const userContext = createContext();
 
 function App() {
-
+  const [userData, setUserData] = useState({});
   return (
     <>
-    <ToastContainer autoClose={1900}/>
-     <Layout/>
+      <userContext.Provider value={{ userData, setUserData }}>
+        <ToastContainer autoClose={1900} />
+        <Layout />
+      </userContext.Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

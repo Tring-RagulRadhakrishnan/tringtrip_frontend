@@ -9,3 +9,12 @@ export const LOGIN=gql`
         }
     }
 `
+export const GET_USER = gql`
+    query{
+        getUser{
+            user_id
+            name
+            email
+        }
+    } 
+`
