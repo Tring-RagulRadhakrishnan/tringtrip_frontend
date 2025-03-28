@@ -10,6 +10,8 @@ import AddPackage from "../pages/addPackage/AddPackage";
 import BookPackage from "../pages/bookPackage/BookPackage";
 import StripePayment from "../components/StripePayment";
 import SearchPackage from "../components/searchPackage/SearchPackage";
+import Profile from "../components/profile/Profile";
+import MyBookings from "../pages/myBookings/MyBookings";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +27,8 @@ const AppRoutes = () => {
         <Route path="/addpackage" element={<AddPackage />} />
         <Route path="/bookpackage" element={<BookPackage />} />
         <Route path="/searchpackage" element={<SearchPackage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/mybookings" element={<MyBookings />} />
         <Route path="/payment" element={<StripePayment />} />
       </Routes>
     </>

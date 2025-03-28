@@ -15,6 +15,7 @@ export const GET_USER = gql`
             user_id
             name
             email
+            phone_number
         }
     } 
 `

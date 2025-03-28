@@ -42,3 +42,45 @@
     border-color: #545a5c;
     box-shadow: 0 0 5px rgba(4, 5, 5, 0.5);
 }
+.header-user-profile-icon{
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 20px;
+    font-size: 18px;
+    padding: 5px;
+    cursor: pointer;
+}
+.header-user-container {
+    position: relative;
+  }
+  
+  .profile-dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 150px;
+    z-index: 10;
+  }
+  
+  .profile-dropdown p {
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .header-profile:hover {
+    background: #f0f0f0;
+  }
+  .header-logout:hover{
+    background-color: rgba(255, 54, 54, 0.836);
+    color: #fff;
+  }
+  .header-mybookings:hover{
+    background-color: #45abd2;
+  }

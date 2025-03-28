@@ -8,3 +8,14 @@ export const CREATE_USER=gql`
         }
     }   
 ` 
+
+export const UPDATE_USER = gql`
+    mutation($name: String!, $phone_number: String!, $user_id: Int!){
+        updateUser(name: $name, phone_number: $phone_number, user_id: $user_id){
+            user_id
+            name
+            email
+            phone_number
+        }
+    }
+`

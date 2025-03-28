@@ -38,14 +38,14 @@ label{
 .button-container{
   width: 100%;
   display: flex;
-    justify-content: center;
+  justify-content: center;
 }
 .common-button {
     padding: 12px 20px;
     /* margin: 0px 60px; */
     
     font-size: 16px;
-    width: 85%;
+    width: 80%;
     font-weight: bold;
     color: #fff;
     background-color: #45abd2;

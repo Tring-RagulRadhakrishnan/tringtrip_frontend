@@ -65,7 +65,6 @@ const PaymentForm = () => {
 
       if (confirmError) throw new Error(confirmError.message);
 
-      // Payment was successful
       setPaymentSuccess(true);
     } catch (error) {
       setErrorMessage(error.message);
