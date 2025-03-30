@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
+import AddPackage from "../../pages/addPackage/AddPackage";
 
 const PackageCard = ({ pack }) => {
   const navigate = useNavigate();
@@ -8,6 +9,14 @@ const PackageCard = ({ pack }) => {
   const handlePack = (pkg) => {
     navigate("/bookpackage", { state: pkg });
   };
+  const handleUpdate = (pkg) => {
+    navigate("/addpackage", { state: pkg });
+    console.log("Update Package:", pkg);
+  };
+  const handleDelete = (pkgId) => {
+    console.log("Delete Package ID:", pkgId);
+  };
+  
   return (
     <div className="packages-container">
       {pack?.map((pkg) => {
@@ -38,10 +47,23 @@ const PackageCard = ({ pack }) => {
                   onClick={() => handlePack(pkg)}
                 />
               </div>
+              <div>
+              <Button
+                  message="Update"
+                  type="button"
+                  onClick={() => handleUpdate(pkg)}
+                />
+                <Button
+                  message="Delete"
+                  type="button"
+                  onClick={() => handleDelete(pkg.package_id)}
+                />
+              </div>
             </div>
           </div>
         );
       })}
+    
     </div>
   );
 };

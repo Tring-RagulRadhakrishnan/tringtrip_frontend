@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UploadButton } from "@bytescale/upload-widget-react";
 import { CREATE_PACKAGE } from "../../graphql/mutation/PackageMutation";
@@ -7,14 +7,19 @@ import Input from "../../components/common/Input";
 import "./AddPackage.css";
 import Button from "../../components/common/Button";
 import PrevImg from "../../assets/prev_img.avif";
+import { useLocation } from "react-router-dom";
 
 const AddPackage = () => {
-  const [imagePreview, setImagePreview] = useState(PrevImg);
+  const location = useLocation();
+  const existingPackage = location?.state;
+  const editMode = !!existingPackage;
+  const [imagePreview, setImagePreview] = useState(existingPackage?.package_img ||PrevImg);
   const [Myimage, setImage] = useState("");
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -27,12 +32,26 @@ const AddPackage = () => {
     fetchPolicy: "no-cache",
   });
 
-
+  useEffect(() => {
+    if (existingPackage) {
+      reset({
+        title: existingPackage.title,
+        days: existingPackage.days,
+        visitPlace: existingPackage.visit_place,
+        price: existingPackage.price,
+        location: existingPackage.location,
+      });
+    }
+  }, [existingPackage, reset]);
 
   const onSubmit = async (data) => {
     let price = parseInt(data?.price);
 
     try {
+      if (editMode) {
+        console.log("update occuer");
+        
+      }else{
       const response = await createPackage({
         variables: {
           package_img: Myimage,
@@ -41,11 +60,12 @@ const AddPackage = () => {
           visit_place: data.visitPlace,
           price: price,
           location: data.location,
+        
         },
       });
-
-      console.log(">>>>>>>>>>>>pack");
-
+    
+      console.log(">>>>>>>>>>>>add pack");
+    }
       console.log(
         "Image URL on Submit:",
         data.package_img,
@@ -63,7 +83,7 @@ const AddPackage = () => {
 
   return (
     <div className="addpackage-container">
-      <h2 className="addpackage-heading">Add New Package</h2>
+      <h2 className="addpackage-heading">{editMode? "Update Package" : "Add New Package"}</h2>
       <div className="addpackage-image-preview-container">
         <img
           src={imagePreview}

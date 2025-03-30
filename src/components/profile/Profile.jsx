@@ -137,7 +137,7 @@ const Profile = () => {
                   </div>
                 ) : (
                   <button
-                    type="button" // Explicitly set type to "button"
+                    type="button"   
                     onClick={(e) => {
                       e.preventDefault();
                       setEditMode(!editMode);
