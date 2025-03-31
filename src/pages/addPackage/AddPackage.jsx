@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UploadButton } from "@bytescale/upload-widget-react";
-import { CREATE_PACKAGE } from "../../graphql/mutation/PackageMutation";
+import {
+  CREATE_PACKAGE,
+  UPDATE_PACKAGE,
+} from "../../graphql/mutation/PackageMutation";
 import { useForm } from "react-hook-form";
 import Input from "../../components/common/Input";
 import "./AddPackage.css";
 import Button from "../../components/common/Button";
 import PrevImg from "../../assets/prev_img.avif";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddPackage = () => {
   const location = useLocation();
   const existingPackage = location?.state;
   const editMode = !!existingPackage;
-  const [imagePreview, setImagePreview] = useState(existingPackage?.package_img ||PrevImg);
+  const navigate = useNavigate();
+  const [imagePreview, setImagePreview] = useState(
+    existingPackage?.package_img || PrevImg
+  );
   const [Myimage, setImage] = useState("");
 
   const {
@@ -24,11 +31,14 @@ const AddPackage = () => {
   } = useForm();
 
   const options = {
-    apiKey: "public_W23MT5kAXXZaaviCEt1KvmNyKfpG", 
+    apiKey: "public_W23MT5kAXXZaaviCEt1KvmNyKfpG",
     maxFileCount: 1,
   };
 
   const [createPackage] = useMutation(CREATE_PACKAGE, {
+    fetchPolicy: "no-cache",
+  });
+  const [updatePackage] = useMutation(UPDATE_PACKAGE, {
     fetchPolicy: "no-cache",
   });
 
@@ -49,23 +59,39 @@ const AddPackage = () => {
 
     try {
       if (editMode) {
+        const response = await updatePackage({
+          variables:{
+            package_img: Myimage,
+            title: data.title,
+            days: data.days,
+            visit_place: data.visitPlace,
+            price: price,
+            location: data.location,
+            package_id:existingPackage.package_id,
+          }
+        })
+        if(response?.data?.updatePackage){
+          toast.success("package updated");
+          navigate("/home")
+        }
         console.log("update occuer");
-        
-      }else{
-      const response = await createPackage({
-        variables: {
-          package_img: Myimage,
-          title: data.title,
-          days: data.days,
-          visit_place: data.visitPlace,
-          price: price,
-          location: data.location,
-        
-        },
-      });
-    
-      console.log(">>>>>>>>>>>>add pack");
-    }
+      } else {
+        const response = await createPackage({
+          variables: {
+            package_img: Myimage,
+            title: data.title,
+            days: data.days,
+            visit_place: data.visitPlace,
+            price: price,
+            location: data.location,
+          },
+        });
+        if(response?.data?.createPackage){
+          toast.success("package created");
+          navigate("/home")
+        }
+        // console.log(">>>>>>>>>>>>add pack");
+      }
       console.log(
         "Image URL on Submit:",
         data.package_img,
@@ -83,7 +109,9 @@ const AddPackage = () => {
 
   return (
     <div className="addpackage-container">
-      <h2 className="addpackage-heading">{editMode? "Update Package" : "Add New Package"}</h2>
+      <h2 className="addpackage-heading">
+        {editMode ? "Update Package" : "Add New Package"}
+      </h2>
       <div className="addpackage-image-preview-container">
         <img
           src={imagePreview}
@@ -95,18 +123,12 @@ const AddPackage = () => {
         <div className="input-field add-package-image">
           <UploadButton
             options={options}
-            onComplete={(files) =>
-            {
-              setImage(files[0].fileUrl)
-              setImagePreview(files[0].fileUrl)
-
-            }
-
-            }
+            onComplete={(files) => {
+              setImage(files[0].fileUrl);
+              setImagePreview(files[0].fileUrl);
+            }}
           >
-            {({ onClick }) => (
-              <button onClick={onClick}>Upload a Image</button>
-            )}
+            {({ onClick }) => <button onClick={onClick}>Upload a Image</button>}
           </UploadButton>
           {errors.file && <p className="error">{errors.file.message}</p>}
         </div>

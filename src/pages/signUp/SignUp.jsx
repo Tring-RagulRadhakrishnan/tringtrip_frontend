@@ -106,7 +106,7 @@ const SignUp = () => {
         </div>
         <Button message="Sign Up" type="submit" className="auth-button"/>
         <p className="have-account">
-          Already have an Account ?<span onClick={() => {}}>Sign In</span>
+          Already have an Account ?<span onClick={() => {navigate('/signin')}}>Sign In</span>
         </p>
       </form>
     </div>

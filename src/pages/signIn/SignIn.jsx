@@ -83,7 +83,7 @@ const SignIn = () => {
         </div>
         <Button message="Sign In" type="submit" />
         <p className="have-account">
-          Don't have an Account ?<span onClick={() => {}}>Sign Up</span>
+          Don't have an Account ?<span onClick={() => {navigate('/signup')}}>Sign Up</span>
         </p>
       </form>
     </div>
