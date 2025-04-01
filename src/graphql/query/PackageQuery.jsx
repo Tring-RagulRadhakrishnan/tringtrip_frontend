@@ -13,22 +13,8 @@ export const GET_PACKAGE_LOCATION = gql`
   }
 `;
 export const GET_ALL_PACKAGES = gql`
-    query getAllPackages($page: Int!){
-        getAllPackages(page: $page)
-        {
-            package_id
-            package_img
-            title
-            days
-            visit_place
-            price
-        }
-    }
-`;
-export const GET_PACKAGE_SEARCH = gql`
-  query getPackageBySearch($searchTerm:String!){
-    getPackageBySearch(searchTerm:$searchTerm)
-    {
+  query getAllPackages($page: Int!) {
+    getAllPackages(page: $page) {
       package_id
       package_img
       title
@@ -37,5 +23,28 @@ export const GET_PACKAGE_SEARCH = gql`
       price
     }
   }
-
-`
+`;
+export const GET_PACKAGE_SEARCH = gql`
+  query getPackageBySearch($searchTerm: String!) {
+    getPackageBySearch(searchTerm: $searchTerm) {
+      package_id
+      package_img
+      title
+      days
+      visit_place
+      price
+    }
+  }
+`;
+export const LOW_PRICE = gql`
+  query {
+    getLowPackage {
+      package_id
+      package_img
+      title
+      days
+      visit_place
+      price
+    }
+  }
+`;

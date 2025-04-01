@@ -1,9 +1,40 @@
-import React from 'react'
+import { useQuery } from "@apollo/client";
+import React, { useContext } from "react";
+import { GET_BOOKINGS } from "../../graphql/query/BookingQuery";
+import { userContext } from "../../App";
+import "./MyBookings.css"; 
 
 const MyBookings = () => {
-  return (
-    <div>MyBookings</div>
-  )
-}
+  const { userData } = useContext(userContext);
 
-export default MyBookings
+  const { data, loading, error } = useQuery(GET_BOOKINGS, {
+    fetchPolicy: "no-cache",
+    variables: {
+      user_id: userData?.user_id,
+    },
+  });
+
+  if (loading) return <p>Loading bookings...</p>;
+  if (error) return <p>Error loading bookings</p>;
+
+  return (
+    <div className="my-bookings-container">
+      <h1 className="my-bookings-title">My Bookings</h1>
+      <div className="bookings-grid">
+        {data?.getBookingByUser?.map((booking) => (
+          <div className="booking-card" key={booking.booking_id}>
+            <img src={booking.package_img} alt={booking.title} className="booking-img" />
+            <h3 className="package-title">{booking.title}</h3>
+            <p className="package-location">📍 {booking.location}</p>
+            <p><strong>📅 Date:</strong> {booking.booking_date}</p>
+            <p><strong>🕒 Duration:</strong> {booking.days}</p>
+            <p><strong>👥 People:</strong> {booking.count}</p>
+            <p><strong>💰 Total:</strong> ₹{booking.total_price}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MyBookings;

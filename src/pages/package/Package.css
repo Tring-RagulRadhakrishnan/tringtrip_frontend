@@ -138,3 +138,11 @@
     display: flex;
     margin-bottom: 50px;
 }
+
+@media (max-width: 768px){
+    .packages-container {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+        column-gap: 0;
+    }
+}

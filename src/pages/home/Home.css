@@ -48,3 +48,62 @@
     text-align: center;
     background-image: linear-gradient(to bottom, rgba(189, 186, 186, 0.121), rgb(124, 120, 120));
 }
+.home-slide-container{
+    margin-bottom: 80px;
+    width:93% ;
+    border-radius: 15px;
+    height: 450px;
+    background-color: transparent;
+}
+.slide-container{
+    z-index: 1;
+}
+
+ .home-slide-img{
+    border-radius: 15px;
+    height: 430px;
+    width: 100%;
+    position: relative;
+    z-index: -1;
+ }
+.home-slide-title{
+    position: absolute;
+    font-weight: 900;
+    font-size: 22px;
+    display: inline;
+    color: #fff;
+    bottom: 25%;
+    padding: 10px 0px;
+    margin: 0px;
+    margin-left: 25px;
+    background-image: linear-gradient(to bottom, rgba(189, 186, 186, 0.121), rgba(124, 120, 120, 0.377));
+    
+
+}
+.home-slide-price{
+    position: absolute;
+    display: inline;
+    color: #fff;
+    bottom: 17%;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px;
+    margin-left: 25px;
+    padding: 5px opx;
+    background-image: linear-gradient(to bottom, rgba(189, 186, 186, 0.121), rgba(124, 120, 120, 0.377));
+}
+
+.home-slide-booknow-button{
+    position: absolute;
+    bottom: 5%;
+    margin-top: 5px;
+    margin-left: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    font-size: 17px;
+    border: transparent;
+    padding: 7px 14px;
+    background-color: #007bff;
+    border-radius: 50px;
+}

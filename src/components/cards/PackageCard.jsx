@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../common/Button";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { DELETE_PACKAGE } from "../../graphql/mutation/PackageMutation";
 import { toast } from "react-toastify";
 import ConfirmPopup from "../confirmPopup/ConfirmPopup"
+import { userContext } from "../../App";
 
 const PackageCard = ({ pack }) => {
   const navigate = useNavigate();
+  const {userData} = useContext(userContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [packageToDelete, setPackageToDelete] = useState(null);
 
@@ -71,7 +73,7 @@ const PackageCard = ({ pack }) => {
                 <li key={index}>{place.trim()}</li>
               ))}
             </ul>
-
+              
             <div className="package-card-button-container">
               <Button
                 message={`₹${pkg.price} / person`}
@@ -79,6 +81,7 @@ const PackageCard = ({ pack }) => {
                 onClick={() => handlePack(pkg)}
               />
             </div>
+            {userData?.role!="user"&&(
             <div className="edit-delete-button-container">
               <Button message="Update" type="button" onClick={() => handleUpdate(pkg)} />
               <Button
@@ -87,6 +90,7 @@ const PackageCard = ({ pack }) => {
                 onClick={() => confirmDelete(pkg)}
               />
             </div>
+            )}
           </div>
         </div>
       ))}

@@ -40,28 +40,22 @@ const Profile = () => {
   }, [userData, reset]);
   
 
-  const [updateUser] = useMutation(UPDATE_USER, { fetchPolicy: "no-cache" });
+  const [updateUser,{data}] = useMutation(UPDATE_USER, { fetchPolicy: "no-cache" });
 
   const onSubmit = async (data) => {
     try {
-      const response = await updateUser({
+      await updateUser({
         variables: {
           name: data.name,
           phone_number: data.phone_number,
           user_id: userData?.user_id,
         },
       });
+  // console.log("??????????????????",response?.data?.updateUser);
   
-      if (response?.data?.updateUser) {
-        setUserData({
-          ...userData,
-          name: response.data.updateUser.name,
-          phone_number: response.data.updateUser.phone_number,
-        });
-  
+
         toast.success("Profile updated successfully!");
         setEditMode(false);
-      }
     } catch (err) {
       console.error("Error updating profile:", err);
       toast.error("Failed to update profile.");
@@ -77,6 +71,15 @@ const Profile = () => {
     });
     setEditMode(false);
   };
+
+  useEffect(()=>{
+    if(data?.updateUser)
+    setUserData({
+      ...userData,
+      name: data?.updateUser.name,
+      phone_number: data?.updateUser.phone_number,
+    }); 
+  },[data?.updateUser])
 
   return (
     <div className="profile-page">

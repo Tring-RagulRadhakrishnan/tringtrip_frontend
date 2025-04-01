@@ -39,7 +39,6 @@ const Package = () => {
         </div>
       </section>
 
-      {/* Packages Section */}
       <section className="package-section">
         <h1>PACKAGES</h1>
         <PackageCard pack = {packages}/>

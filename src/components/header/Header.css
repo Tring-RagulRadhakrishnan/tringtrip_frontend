@@ -84,3 +84,11 @@
   .header-mybookings:hover{
     background-color: #45abd2;
   }
+  .header-navigation-page-container{
+    display: flex;
+    color: #fff;
+    column-gap: 30px;
+  }
+  .header-navigation-page-container>p{
+    cursor: pointer;
+  }

@@ -16,6 +16,7 @@ export const GET_USER = gql`
             name
             email
             phone_number
+            role
         }
     } 
 `

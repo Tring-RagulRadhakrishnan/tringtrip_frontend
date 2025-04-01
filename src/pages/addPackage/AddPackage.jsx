@@ -60,19 +60,19 @@ const AddPackage = () => {
     try {
       if (editMode) {
         const response = await updatePackage({
-          variables:{
+          variables: {
             package_img: Myimage,
             title: data.title,
             days: data.days,
             visit_place: data.visitPlace,
             price: price,
             location: data.location,
-            package_id:existingPackage.package_id,
-          }
-        })
-        if(response?.data?.updatePackage){
+            package_id: existingPackage.package_id,
+          },
+        });
+        if (response?.data?.updatePackage) {
           toast.success("package updated");
-          navigate("/home")
+          navigate("/home");
         }
         console.log("update occuer");
       } else {
@@ -86,9 +86,9 @@ const AddPackage = () => {
             location: data.location,
           },
         });
-        if(response?.data?.createPackage){
+        if (response?.data?.createPackage) {
           toast.success("package created");
-          navigate("/home")
+          navigate("/home");
         }
         // console.log(">>>>>>>>>>>>add pack");
       }

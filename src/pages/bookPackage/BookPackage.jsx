@@ -5,6 +5,8 @@ import Button from "../../components/common/Button";
 import { toast } from "react-toastify";
 import { userContext } from "../../App";
 import ConfirmPopup from "../../components/confirmPopup/ConfirmPopup";
+import { useMutation } from "@apollo/client";
+import { ADD_BOOKING } from "../../graphql/mutation/BookingMutation";
 
 const BookPackage = () => {
   const location = useLocation();
@@ -14,8 +16,9 @@ const BookPackage = () => {
   const [totalPrice, setTotalPrice] = useState(packageDetail?.price);
   const [selectedDate, setSelectedDate] = useState("");
   const { userData } = useContext(userContext);
-  const [isPopupOpen, setIsPopupOpen] = useState(false); 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const [addBooking] = useMutation(ADD_BOOKING, { fetchPolicy: "no-cache" });
   const today = new Date();
   today.setDate(today.getDate() + 4);
   const minDate = today.toISOString().split("T")[0];
@@ -49,20 +52,36 @@ const BookPackage = () => {
       toast.error("Select a date to book");
       return;
     }
-    setIsPopupOpen(true); 
+    setIsPopupOpen(true);
   };
 
-  const confirmBooking = () => {
-    console.log("Booking Details:");
-    console.log("Date:", selectedDate);
-    console.log("Count:", count);
-    console.log("Total Price:", totalPrice);
-    console.log("User ID:", userData?.user_id);
-    console.log("Package ID:", packageDetail?.package_id);
-    console.log("Email:", userData?.email);
-
-    setIsPopupOpen(false);
-    toast.success("Booking Confirmed!");
+  const confirmBooking = async () => {
+    // console.log("Booking Details:");
+    // console.log("Date:", selectedDate);
+    // console.log("Count:", count);
+    // console.log("Total Price:", totalPrice);
+    // console.log("User ID:", userData?.user_id);
+    // console.log("Package ID:", packageDetail?.package_id);
+    // console.log("Email:", userData?.email);
+    try {
+      const response = await addBooking({
+        variables: {
+          package_id: packageDetail?.package_id,
+          booking_date: selectedDate,
+          count: count,
+          total_price: totalPrice,
+          user_id: userData?.user_id,
+          email: userData?.email,
+        },
+      });
+      if (response?.data?.addBooking) {
+        setIsPopupOpen(false);
+        toast.success("Booking Confirmed!");
+        navigate('/home ')
+      }
+    } catch (err) {
+      console.log("log from bookpackage", err);
+    }
   };
 
   return (
@@ -78,12 +97,24 @@ const BookPackage = () => {
         <div className="package-detail-container">
           <h1 className="title">Book Your Package</h1>
           <h2 className="package-title">{packageDetail?.title}</h2>
-          <p className="package-location">📍 Location: {packageDetail?.location}</p>
-          <p className="package-price">💰 Price: ₹{packageDetail?.price} / person</p>
+          <p className="package-location">
+            📍 Location: {packageDetail?.location}
+          </p>
+          <p className="package-price">
+            💰 Price: ₹{packageDetail?.price} / person
+          </p>
           <p className="package-duration">⏳ Duration: {packageDetail?.days}</p>
 
-          {selectedDate && <p className="selected-date">📅 Selected Date: {selectedDate}</p>}
-          <p className="package-description">{packageDetail?.description}</p>
+          {selectedDate && (
+            <p className="selected-date">📅 Selected Date: {selectedDate}</p>
+          )}
+          {/* <p className="package-description">{packageDetail?.}</p> */}
+          <ul >
+              <p>&#128203; Visit Places</p>
+              {packageDetail.visit_place.split(",")?.map((place, index) => (
+                <li key={index}>{place.trim()}</li>
+              ))}
+            </ul>
 
           <div className="package-add-person-container">
             <p className="package-add-person-title">Add person:</p>
