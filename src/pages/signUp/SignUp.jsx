@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  AiOutlineMail,
-  FaUser,
-  MdLock,
-  IoIosPhonePortrait,
-} from '../../utils/Icons.jsx';
-import "./SignUp.css";
-import { validation } from "../../utils/validations.js";
-import Input from "../../components/common/Input";
-import { useMutation } from "@apollo/client";
-import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
-import Button from "../../components/common/Button.jsx";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
 import bcrypt from "bcryptjs";
+
+import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
+
+import { validation } from "../../utils/validations.js";
+import { AiOutlineMail, FaUser, MdLock, IoIosPhonePortrait } from '../../utils/Icons.jsx';
+
+import Input from "../../components/common/Input";
+import Button from "../../components/common/Button.jsx";
+
+import "./SignUp.css";
+
 
 const SignUp = () => {
   const {

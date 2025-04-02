@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { UploadButton } from "@bytescale/upload-widget-react";
-import {
-  CREATE_PACKAGE,
-  UPDATE_PACKAGE,
-} from "../../graphql/mutation/PackageMutation";
 import { useForm } from "react-hook-form";
-import Input from "../../components/common/Input";
-import "./AddPackage.css";
-import Button from "../../components/common/Button";
-import PrevImg from "../../assets/prev_img.avif";
-import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { UploadButton } from "@bytescale/upload-widget-react";
+
+import { CREATE_PACKAGE, UPDATE_PACKAGE } from "../../graphql/mutation/PackageMutation";
+
+import Input from "../../components/common/Input";
+import Button from "../../components/common/Button";
+
+import PrevImg from "../../assets/prev_img.avif";
+
+import "./AddPackage.css";
+
 
 const AddPackage = () => {
   const location = useLocation();
@@ -92,16 +95,7 @@ const AddPackage = () => {
         }
         // console.log(">>>>>>>>>>>>add pack");
       }
-      console.log(
-        "Image URL on Submit:",
-        data.package_img,
-        data.title,
-        data.days,
-        data.visitPlace,
-        data.price,
-        data.location,
-        Myimage
-      );
+      
     } catch (err) {
       console.log("log from create package", err);
     }
@@ -173,9 +167,7 @@ const AddPackage = () => {
               {...register("location", { required: "Location is required" })}
               className="input"
             >
-              <option value="" disabled hidden>
-                Select Location
-              </option>
+              <option value="" disabled > Select Location </option>
               <option value="Thailand">Thailand</option>
               <option value="Dubai">Dubai</option>
               <option value="Vietnam">Vietnam</option>

@@ -1,8 +1,7 @@
 import {ApolloClient,createHttpLink,InMemoryCache} from "@apollo/client"
 
 const httpLink=createHttpLink({
-    // uri:import.meta.env.VITE_GRAPHQL_URI ,
-    uri:import.meta.env.VITE_GRAPHQL_URI || "http://localhost:8000/graphql",
+    uri:import.meta.env.VITE_GRAPHQL_URI ,
     credentials:"include"
 })
 

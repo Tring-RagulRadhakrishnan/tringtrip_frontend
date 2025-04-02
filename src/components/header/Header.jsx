@@ -1,13 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Header.css";
-import { RiFileSearchFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_USER } from "../../graphql/query/UserQuery";
-import { userContext } from "../../App";
-import { FaUser } from "../../utils/Icons";
-import { LOGOUT } from "../../graphql/mutation/userMutation";
 import { toast } from "react-toastify";
+
+import { userContext } from "../../App";
+
+import { GET_USER } from "../../graphql/query/UserQuery";
+import { LOGOUT } from "../../graphql/mutation/userMutation";
+
+import { RiFileSearchFill } from "react-icons/ri";
+import { FaUser } from "../../utils/Icons";
+
+import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,16 +21,15 @@ const Header = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
- 
+
   const { data } = useQuery(GET_USER, { fetchPolicy: "no-cache" });
- 
 
   const [logout] = useMutation(LOGOUT, { fetchPolicy: "no-cache" });
 
+ 
 
+  setUserData(data?.getUser);
   console.log(userData);
-  
-    setUserData(data?.getUser);
 
   const handleProfile = () => {
     setDropDown((prev) => !prev);
@@ -57,50 +60,48 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
-    try{ 
+    try {
       const response = await logout();
-      setUserData(null);
-      if(response?.data?.logout){
-        toast.error("logout Successfull")
-        setUserData(null)
+      setUserData(null); 
+      if (response?.data?.logout) {
+        toast.error("logout Successfull");
+        setUserData(null);
         navigate("/signin");
       }
-    
-    }
-    catch(err){
-      console.log("error log from logout",err);
-      
+    } catch (err) {
+      console.log("error log from logout", err);
     }
   };
 
   return (
     <div className="header-container">
-      <div className="header-logo-container" onClick={()=>navigate("/home")}>
+      <div className="header-logo-container" onClick={() => navigate("/home")}>
         <p className="header-logo-1 header-logo">Tring</p>
         <p className="header-logo-2 header-logo">Trip</p>
       </div>
 
       {userData && (
-        <div className="search-bar-container">
-          <RiFileSearchFill />
-          <input
-            type="text"
-            placeholder="search to travel"
-            onChange={(e) => handleSearch(e)}
-          />
-        </div>
+        <>
+          <div className="search-bar-container">
+            <RiFileSearchFill />
+            <input
+              type="text"
+              placeholder="search to travel"
+              onChange={(e) => handleSearch(e)}
+            />
+          </div>
+
+          <div className="header-navigation-page-container">
+            <p onClick={() => navigate("/allpackages")}>All Packages</p>
+            {userData?.role == "user" ? (
+              <p onClick={() => navigate("/mybookings")}>My Bookings</p>
+            ) : (
+              <p onClick={() => navigate("/addpackage")}>Add Package</p>
+            )}
+            <p onClick={() => handleFaqs()}>Faqs</p>
+          </div>
+        </>
       )}
-
-      <div className="header-navigation-page-container">
-        <p onClick={() => navigate("/allpackages")}>All Packages</p>
-        {userData?.role == "user" ? (
-          <p onClick={() => navigate("/mybookings")}>My Bookings</p>
-        ) : (
-          <p onClick={() => navigate("/addpackage")}>Add Package</p>
-        )}
-        <p onClick={() => handleFaqs()}>Faqs</p>
-      </div>
-
       <div>
         <FaUser className="header-user-profile-icon" onClick={handleProfile} />
         {dropDown && (

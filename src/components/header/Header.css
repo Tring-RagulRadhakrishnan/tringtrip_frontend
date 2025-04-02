@@ -11,6 +11,7 @@
 .header-logo-container{
     display: flex;
     margin-left: 35px;
+    cursor: pointer;
 }
 .header-logo{
     font-size: 28px;

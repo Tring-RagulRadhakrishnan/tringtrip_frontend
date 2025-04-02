@@ -1,8 +1,10 @@
-import { useQuery } from "@apollo/client";
 import React, { useContext } from "react";
-import { GET_BOOKINGS } from "../../graphql/query/BookingQuery";
+import { useQuery } from "@apollo/client";
+
 import { userContext } from "../../App";
-import "./MyBookings.css"; 
+import { GET_BOOKINGS } from "../../graphql/query/BookingQuery";
+
+import "./MyBookings.css";
 
 const MyBookings = () => {
   const { userData } = useContext(userContext);

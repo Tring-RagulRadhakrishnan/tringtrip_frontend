@@ -1,5 +1,4 @@
 import React from 'react'
-import { Routes } from 'react-router-dom'
 import AppRoutes from '../routes/AppRoutes'
 import Header from './header/Header'
 

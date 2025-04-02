@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { toast } from "react-toastify";
+
 import { userContext } from "../../App";
+
+import { UPDATE_USER } from "../../graphql/mutation/userMutation";
+
 import Input from "../common/Input";
 import Button from "../common/Button";
-import "./Profile.css";
+
 import ProfileImg from "../../assets/profile_img.jpg";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@apollo/client";
-import { UPDATE_USER } from "../../graphql/mutation/userMutation";
-import { toast } from "react-toastify";
+
+import "./Profile.css";
+
 
 const Profile = () => {
   const { userData, setUserData } = useContext(userContext);
@@ -37,25 +43,32 @@ const Profile = () => {
         phone_number: userData.phone_number,
       });
     }
-  }, [userData, reset]);
+  }, [userData]);
   
 
-  const [updateUser,{data}] = useMutation(UPDATE_USER, { fetchPolicy: "no-cache" });
+  const [updateUser,{data}] = useMutation(UPDATE_USER, { fetchPolicy: "network-only" });
 
   const onSubmit = async (data) => {
     try {
-      await updateUser({
+      const response = await updateUser({
         variables: {
           name: data.name,
           phone_number: data.phone_number,
           user_id: userData?.user_id,
         },
       });
-  // console.log("??????????????????",response?.data?.updateUser);
   
-
+      if (response?.data?.updateUser) {
+       
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          name: response.data.updateUser.name,
+          phone_number: response.data.updateUser.phone_number,
+        }));
+        
         toast.success("Profile updated successfully!");
         setEditMode(false);
+      }
     } catch (err) {
       console.error("Error updating profile:", err);
       toast.error("Failed to update profile.");

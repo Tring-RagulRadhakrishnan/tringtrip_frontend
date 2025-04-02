@@ -4,7 +4,7 @@ import SignUp from "../pages/signUp/SignUp";
 import SignIn from "../pages/signIn/SignIn";
 import Home from "../pages/home/Home";
 import Auth from "../components/auth/Auth";
-import Package from "../pages/package/Package";
+import Package from "../pages/tripPack/TripPack";
 import AllPackages from "../pages/allPackages/AllPackages";
 import AddPackage from "../pages/addPackage/AddPackage";
 import BookPackage from "../pages/bookPackage/BookPackage";

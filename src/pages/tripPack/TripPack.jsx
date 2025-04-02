@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
-import "./Package.css";
 import { useQuery } from "@apollo/client";
+
 import { GET_PACKAGE_LOCATION } from "../../graphql/query/PackageQuery";
+
 import PackageCard from "../../components/cards/PackageCard";
+
+import "./TripPack.css";
+
 
 const Package = () => {
   const location = useLocation();

@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
-
-import Faqs from "../../components/faqs/Faqs";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+
+import { Slide } from "react-slideshow-image";
+import 'react-slideshow-image/dist/styles.css';
+
 import {
   GET_BEST_PACKAGE,
   GET_INTERNATIONAL_PACKAGE,
-  GET_VISA_PACKAGE,
+  GET_VISA_PACKAGE
 } from "../../graphql/query/LocationQuery";
-import "./Home.css";
-import { Slide } from "react-slideshow-image";
+
 import { GET_FAQS } from "../../graphql/query/FaqsQuery";
-import LoctionCard from "../../components/cards/LoctionCard";
 import { LOW_PRICE } from "../../graphql/query/PackageQuery";
-import 'react-slideshow-image/dist/styles.css'
-import { useNavigate } from "react-router-dom";
+
+import Faqs from "../../components/faqs/Faqs";
+import LoctionCard from "../../components/cards/LoctionCard";
+import useScrollToTop from "../../hooks/useScrollToTop";
+
+import "./Home.css";
+
+
 
 const Home = () => {
- 
+  useScrollToTop()
   const navigate = useNavigate();
   const { data: lowPack, loading: lowPackLoading } = useQuery(LOW_PRICE, {
     fetchPolicy: "no-cache",

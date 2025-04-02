@@ -21,6 +21,7 @@ export const GET_ALL_PACKAGES = gql`
       days
       visit_place
       price
+      total_count
     }
   }
 `;
@@ -33,6 +34,7 @@ export const GET_PACKAGE_SEARCH = gql`
       days
       visit_place
       price
+      total_count
     }
   }
 `;

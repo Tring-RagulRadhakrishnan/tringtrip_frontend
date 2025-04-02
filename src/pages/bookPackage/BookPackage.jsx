@@ -1,14 +1,21 @@
 import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./BookPackage.css";
-import Button from "../../components/common/Button";
-import { toast } from "react-toastify";
-import { userContext } from "../../App";
-import ConfirmPopup from "../../components/confirmPopup/ConfirmPopup";
 import { useMutation } from "@apollo/client";
+import { toast } from "react-toastify";
+
+import { userContext } from "../../App";
+
 import { ADD_BOOKING } from "../../graphql/mutation/BookingMutation";
 
+import Button from "../../components/common/Button";
+import ConfirmPopup from "../../components/confirmPopup/ConfirmPopup";
+import useScrollToTop from "../../hooks/useScrollToTop";
+
+import "./BookPackage.css";
+
+
 const BookPackage = () => {
+  useScrollToTop()
   const location = useLocation();
   const navigate = useNavigate();
   const packageDetail = location?.state;
@@ -56,13 +63,6 @@ const BookPackage = () => {
   };
 
   const confirmBooking = async () => {
-    // console.log("Booking Details:");
-    // console.log("Date:", selectedDate);
-    // console.log("Count:", count);
-    // console.log("Total Price:", totalPrice);
-    // console.log("User ID:", userData?.user_id);
-    // console.log("Package ID:", packageDetail?.package_id);
-    // console.log("Email:", userData?.email);
     try {
       const response = await addBooking({
         variables: {
@@ -80,6 +80,9 @@ const BookPackage = () => {
         navigate('/home ')
       }
     } catch (err) {
+      toast.error("signin to book package")
+      // navigate("/signin")
+      setIsPopupOpen(false)
       console.log("log from bookpackage", err);
     }
   };
