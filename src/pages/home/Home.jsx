@@ -19,6 +19,7 @@ import LoctionCard from "../../components/cards/LoctionCard";
 import useScrollToTop from "../../hooks/useScrollToTop";
 
 import "./Home.css";
+import Button from "../../components/common/Button";
 
 
 
@@ -46,11 +47,10 @@ const Home = () => {
   }, [lowPack]);
 
   const handleBookNow = (data)=>{
-    console.log(data?.package_id,data?.title,data?.days,data?.visit_place,data?.price);
+    // console.log(data?.package_id,data?.title,data?.days,data?.visit_place,data?.price);
     
     navigate("/bookpackage",{state:data})
   }
-// console.log("slide pack ...........",slidePackages);
 
   return (
     <div className="home-outer-container">
@@ -73,12 +73,14 @@ const Home = () => {
                   <p className="home-slide-price">
                     &#8377; {data?.price} onwards
                   </p>
-                  <button
+                  <div style={{width:"200px"}}>
+                  <Button
                     className="home-slide-booknow-button"
-                    onClick={() => handleBookNow(data)}
-                  >
-                    Book Now
-                  </button>
+                    onClick={()=>handleBookNow(data)}
+                  
+                    message="Book Now"
+                  ></Button>
+                  </div>
                 </div>
               </div>
             ))}

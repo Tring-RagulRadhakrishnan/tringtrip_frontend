@@ -10,7 +10,6 @@ import { LOGIN } from "../../graphql/query/UserQuery.jsx";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button.jsx";
 
-import { AiOutlineMail, MdLock } from "../../utils/Icons.jsx";
 
 
 const SignIn = () => {
@@ -33,7 +32,6 @@ const SignIn = () => {
     },
   });
 
-  // console.log(error?.message.includes);
 
   const submit = async (formData) => {
     try {
@@ -68,7 +66,6 @@ const SignIn = () => {
             name="email"
             error={errors.email}
           />
-          <AiOutlineMail />
         </div>
 
         <div className="form-body password-input">
@@ -80,7 +77,6 @@ const SignIn = () => {
             name="password"
             error={errors.password}
           />
-          <MdLock />
         </div>
         <Button message="Sign In" type="submit" />
         <p className="have-account">

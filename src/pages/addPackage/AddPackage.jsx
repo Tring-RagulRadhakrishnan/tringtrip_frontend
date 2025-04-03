@@ -6,7 +6,10 @@ import { toast } from "react-toastify";
 
 import { UploadButton } from "@bytescale/upload-widget-react";
 
-import { CREATE_PACKAGE, UPDATE_PACKAGE } from "../../graphql/mutation/PackageMutation";
+import {
+  CREATE_PACKAGE,
+  UPDATE_PACKAGE,
+} from "../../graphql/mutation/PackageMutation";
 
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
@@ -14,7 +17,6 @@ import Button from "../../components/common/Button";
 import PrevImg from "../../assets/prev_img.avif";
 
 import "./AddPackage.css";
-
 
 const AddPackage = () => {
   const location = useLocation();
@@ -55,7 +57,7 @@ const AddPackage = () => {
         location: existingPackage.location,
       });
     }
-  }, [existingPackage, reset]);
+  }, [existingPackage]);
 
   const onSubmit = async (data) => {
     let price = parseInt(data?.price);
@@ -95,17 +97,36 @@ const AddPackage = () => {
         }
         // console.log(">>>>>>>>>>>>add pack");
       }
-      
     } catch (err) {
       console.log("log from create package", err);
     }
   };
-
+  const locations = [
+    "Thailand",
+    "Dubai",
+    "Vietnam",
+    "Malaysia",
+    "Maldives",
+    "Singapore",
+    "Bali",
+    "Andaman",
+    "Goa",
+    "Kerala",
+    "Himachal",
+    "Kashmir",
+    "South India",
+    "North East",
+    "Uttarakhand",
+    "Ladakh",
+    "Bhutan",
+    "Europe",
+    "Almaty",
+  ];
   return (
     <div className="addpackage-container">
-      <h2 className="addpackage-heading">
+      <h1 className="addpackage-heading">
         {editMode ? "Update Package" : "Add New Package"}
-      </h2>
+      </h1>
       <div className="addpackage-image-preview-container">
         <img
           src={imagePreview}
@@ -167,8 +188,11 @@ const AddPackage = () => {
               {...register("location", { required: "Location is required" })}
               className="input"
             >
-              <option value="" disabled > Select Location </option>
-              <option value="Thailand">Thailand</option>
+              <option hidden> Select Location </option>
+              {locations.map((place) => (
+                <option value={place}>{place}</option>
+              ))}
+              {/* <option value="Thailand">Thailand</option>
               <option value="Dubai">Dubai</option>
               <option value="Vietnam">Vietnam</option>
               <option value="Malaysia">Malaysia</option>
@@ -186,7 +210,7 @@ const AddPackage = () => {
               <option value="Ladakh">Ladakh</option>
               <option value="Bhutan">Bhutan</option>
               <option value="Europe">Europe</option>
-              <option value="Almaty">Almaty</option>
+              <option value="Almaty">Almaty</option> */}
             </select>
             {errors.location && (
               <p className="error">{errors.location.message}</p>

@@ -46,13 +46,7 @@ body{
     position: relative;
 }
 
-.form-body > svg {
-    position: absolute;
-    color: #45abd2;
-    left: 3%; 
-    top: 30px;
-    font-size: 20px;
-  }
+
 .have-account{
     width: 100%;
     text-align: center;

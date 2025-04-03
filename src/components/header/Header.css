@@ -76,7 +76,7 @@
   }
   
   .header-profile:hover {
-    background: #f0f0f0;
+    background-color: #f0f0f0;
   }
   .header-logout:hover{
     background-color: rgba(255, 54, 54, 0.836);
@@ -91,5 +91,23 @@
     column-gap: 30px;
   }
   .header-navigation-page-container>p{
+    cursor: pointer;
+  }
+  .header-user-name-container{
+    display: flex;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  .header-user-name{
+    color: #fff;
+  }
+  .header-auth-contanier{
+    display: flex;
+    column-gap: 15px;
+
+  }
+  .header-auth{
+    color: #fff;
     cursor: pointer;
   }

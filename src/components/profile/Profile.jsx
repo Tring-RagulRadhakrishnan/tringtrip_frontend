@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
 
 import { userContext } from "../../App";
+import { validation } from "../../utils/validations";
 
 import { UPDATE_USER } from "../../graphql/mutation/userMutation";
 
@@ -14,6 +15,7 @@ import Button from "../common/Button";
 import ProfileImg from "../../assets/profile_img.jpg";
 
 import "./Profile.css";
+
 
 
 const Profile = () => {
@@ -46,7 +48,14 @@ const Profile = () => {
   }, [userData]);
   
 
-  const [updateUser,{data}] = useMutation(UPDATE_USER, { fetchPolicy: "network-only" });
+  const [updateUser,{data}] = useMutation(UPDATE_USER, { fetchPolicy: "network-only", onCompleted(data){
+    console.log("oncomplete",data)
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      name: data.updateUser.name,
+      phone_number: data.updateUser.phone_number,
+    }));
+  }});
 
   const onSubmit = async (data) => {
     try {
@@ -76,7 +85,8 @@ const Profile = () => {
   };
   
 
-  const handleCancel = () => {
+  const handleCancel = (e) => {
+    e.preventDefault();
     reset({
       name: userData.name,
       email: userData.email,
@@ -113,7 +123,7 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your name"
                 name="name"
-                register={register}
+                register={(name) => register(name, validation.name)}
                 error={errors.name}
                 disabled={!editMode}
               />
@@ -123,7 +133,7 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your email"
                 name="email"
-                register={register}
+                register={(email) => register(email, validation.email)}
                 error={null}
                 disabled
               />
@@ -133,7 +143,7 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your phone number"
                 name="phone_number"
-                register={register}
+                register={(phone_number) => register(phone_number, validation.phone_number)}
                 error={errors.phone_number}
                 disabled={!editMode}
               />
@@ -145,7 +155,7 @@ const Profile = () => {
                     </button>
                     <button
                       type="sumbit"
-                      onClick={handleCancel}
+                      onClick={(e)=>handleCancel(e)}
                       className="cancel-btn"
                     >
                       Cancel

@@ -61,3 +61,15 @@
     color: #555;
   }
   
+  .no-package-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+  }
+  .no-package-image{
+    height: 200px;
+    width: 200px;
+  }

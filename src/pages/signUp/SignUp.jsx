@@ -8,7 +8,6 @@ import bcrypt from "bcryptjs";
 import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
 
 import { validation } from "../../utils/validations.js";
-import { AiOutlineMail, FaUser, MdLock, IoIosPhonePortrait } from '../../utils/Icons.jsx';
 
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button.jsx";
@@ -32,7 +31,7 @@ const SignUp = () => {
   });
   const submit = async (formData) => {
     const hashedPassword = await bcrypt.hash(formData.password, 5);
-    console.log("Hashed Password:", hashedPassword);
+    // console.log("Hashed Password:", hashedPassword);
   
     try {
       const response = await createUser({
@@ -63,46 +62,44 @@ const SignUp = () => {
             label="Name"
             type="text"
             placeholder="Name"
-            register={(name) => register(name, validation.name)}
+            register={register}
+            validation={validation.name}
             name="name"
             error={errors.name}
           />
-          <FaUser />
         </div>
         <div className="form-body">
           <Input
             label="Email"
             type="email"
             placeholder="Email"
-            register={(email) => register(email, validation.email)}
+            register={register}
+            validation={validation.email}
             name="email"
             error={errors.email}
           />
-          <AiOutlineMail />
         </div>
         <div className="form-body">
           <Input
             label="Phone Number"
             type="tel"
             placeholder="Phone Number"
-            register={(phone_number) =>
-              register(phone_number, validation.phone_number)
-            }
+            register={register}
+            validation={validation.phone_number}
             name="phone_number"
             error={errors.phone_number}
           />
-          <IoIosPhonePortrait />
         </div>
         <div className="form-body password-input">
           <Input
             label="Password"
             type="password"
             placeholder="Password"
-            register={(password) => register(password, validation.password)}
+            register={register}
+            validation={validation.password}
             name="password"
             error={errors.password}
           />
-          <MdLock />
         </div>
         <Button message="Sign Up" type="submit" className="auth-button"/>
         <p className="have-account">

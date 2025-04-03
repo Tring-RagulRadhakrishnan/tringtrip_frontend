@@ -85,7 +85,7 @@ const PackageCard = ({ pack }) => {
                 onClick={() => handlePack(pkg)}
               />
             </div>
-            {userData?.role!="user"&&(
+            {userData?.role=="admin"&&(
             <div className="edit-delete-button-container">
               <Button message="Update" type="button" onClick={() => handleUpdate(pkg)} />
               <Button

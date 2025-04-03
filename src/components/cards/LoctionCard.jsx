@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const LoctionCard = ({locationCard,category}) => {
-    // console.log(">>>>>>>>>>>>>>. card container",locationCard);
     const navigate = useNavigate();
   const handleCard = (card)=>{
       navigate(`/package/${card.location}`,{state:card})

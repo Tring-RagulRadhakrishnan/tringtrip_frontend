@@ -22,14 +22,13 @@ const Header = () => {
     setSearchTerm(e.target.value);
   };
 
-  const { data } = useQuery(GET_USER, { fetchPolicy: "no-cache" });
+  const { data,refetch } = useQuery(GET_USER, { fetchPolicy: "no-cache" });
 
   const [logout] = useMutation(LOGOUT, { fetchPolicy: "no-cache" });
 
- 
+  console.log('data?.getUser', data?.getUser)
 
   setUserData(data?.getUser);
-  console.log(userData);
 
   const handleProfile = () => {
     setDropDown((prev) => !prev);
@@ -62,7 +61,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       const response = await logout();
-      setUserData(null); 
+      setUserData(null);
       if (response?.data?.logout) {
         toast.error("logout Successfull");
         setUserData(null);
@@ -102,7 +101,18 @@ const Header = () => {
           </div>
         </>
       )}
-      <div>
+      
+      <div className="header-user-name-container">
+        {userData ? (
+          <span className="header-user-name">Hi,{userData?.name}</span>
+        ):(<div className="header-auth-contanier">
+          <p onClick={() => navigate("/signin")} className="header-auth">
+            Sign In
+          </p>
+          <p onClick={() => navigate("/signup")} className="header-auth">
+            Sign Up
+          </p>
+        </div>)}
         <FaUser className="header-user-profile-icon" onClick={handleProfile} />
         {dropDown && (
           <div className="profile-dropdown">

@@ -13,7 +13,7 @@ export const validation = {
     email: {
       required: "email is required",
       pattern: {
-        value: /^[a-z0-9-._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+        value: /^[a-z0-9-._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/,
         message: "Invalid email format",
       },
     },

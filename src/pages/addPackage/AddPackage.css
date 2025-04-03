@@ -74,8 +74,8 @@
   width: 100%;
 }
 .add-package-input{
-  /* background-color: yellow; */
   width: 50%;
+  
 }
 .add-package-input-field{
   display: flex;
@@ -85,7 +85,15 @@
 .add-package-input-field>.input{
   height: 40px;
   width: 85%;
-  padding-left: 35px;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  padding-left: 7px;
+}
+
+.add-package-input-field>.input:focus{
+  outline: none;
+  border-color: #45abd2;
+  box-shadow: 0 0 5px rgba(69, 171, 210, 0.5);
 }
 .add-package-submit-button{
  margin-top: 15px;

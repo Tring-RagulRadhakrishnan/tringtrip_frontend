@@ -28,7 +28,7 @@ label{
   width: 77%;
   border: 0.5px solid gray;
   border-radius: 5px;
-  padding-left: 35px;
+  padding-left: 7px;
 }
 .input-field>input:focus{
   outline: none;
