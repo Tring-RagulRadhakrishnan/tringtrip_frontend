@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import SignUp from "../pages/signUp/SignUp";
 import SignIn from "../pages/signIn/SignIn";
 import Home from "../pages/home/Home";
@@ -12,24 +12,9 @@ import SearchPackage from "../components/searchPackage/SearchPackage";
 import Profile from "../components/profile/Profile";
 import MyBookings from "../pages/myBookings/MyBookings";
 import ProtectedRoutes from "./ProtectedRoutes";
-import { userContext } from "../App";
-import Cookies from 'js-cookie';
-import { useQuery } from "@apollo/client";
-import { GET_COOKIE } from "../graphql/query/UserQuery";
 
 const AppRoutes = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
-  const { data, loading, error } = useQuery(GET_COOKIE, {
-    fetchPolicy: "no-cache",
-    credentials: "include",
-  });
-
-  useEffect(() => {
-    if (data?.getCookie) {
-      setIsLoggedIn(true);
-    }
-  }, [data]);
   return (
     <>
       <Routes>
@@ -66,15 +51,14 @@ const AppRoutes = () => {
             </ProtectedRoutes>
           }
         />
-        <Route path="/mybookings" element={isLoggedIn?<MyBookings />:<Navigate to="/signin" />} />
-        {/* <Route
+        <Route
           path="/mybookings"
           element={
             <ProtectedRoutes>
               <MyBookings />
             </ProtectedRoutes>
           }
-        /> */}
+        />
       </Routes>
     </>
   );

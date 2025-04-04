@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useLazyQuery } from "@apollo/client";
 import { toast } from "react-toastify";
-import bcrypt from "bcryptjs";
 
 import { LOGIN } from "../../graphql/query/UserQuery.jsx";
+import { EncryptPassword } from "../../components/EncryptPassword.jsx";
 
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button.jsx";
@@ -35,12 +35,12 @@ const SignIn = () => {
 
   const submit = async (formData) => {
     try {
-      const hashedPassword = await bcrypt.hash(formData.password, 5);
-      console.log("Hashed Password:", hashedPassword);
+      const hashedPassword = EncryptPassword(formData?.password);
+          console.log(hashedPassword,"encoded");
       const response = await login({
         variables: {
           email: formData.email,
-          password: formData.password,
+          password: hashedPassword,
         },
       });
 

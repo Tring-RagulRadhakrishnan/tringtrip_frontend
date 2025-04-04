@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
 
 import { validation } from "../../utils/validations.js";
+import { EncryptPassword } from "../../components/EncryptPassword.jsx";
 
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button.jsx";
@@ -30,8 +31,8 @@ const SignUp = () => {
     }
   });
   const submit = async (formData) => {
-    const hashedPassword = await bcrypt.hash(formData.password, 5);
-    // console.log("Hashed Password:", hashedPassword);
+    const hashedPassword = EncryptPassword(formData?.password);
+    console.log(hashedPassword,"encoded");
   
     try {
       const response = await createUser({

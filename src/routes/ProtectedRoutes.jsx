@@ -15,12 +15,10 @@ const ProtectedRoutes = ({ children }) => {
     console.log("data?.getUser", data?.getUser, userData, loading);
     if (loading === false) {
       if (data?.getUser) {
-        console.log("user data ok");
         setUserData(data?.getUser);
       } else {
         toast.error("Sign In to Acces");
         navigate("/signin");
-        console.log("user data not ok");
       }
     }
   }, [loading]);

@@ -20,9 +20,4 @@ export const GET_USER = gql`
         }
     } 
 `
-export const GET_COOKIE = gql`
-    query{
-        getCookie
-    }
 
-`
