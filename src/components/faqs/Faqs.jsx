@@ -10,7 +10,6 @@ import {
 import "./Faqs.css";
 
 const Faqs = ({ faqs }) => {
-  // console.log(">>>>>>>>>>>>>>>>", faqs);
 
   const icons = [<FaPaperPlane/>,<LiaUserEditSolid/>,<MdFreeCancellation/>,<GrUpdate/>,<RiRefund2Line/>,<MdModeOfTravel/>]
 

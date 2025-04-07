@@ -12,7 +12,7 @@ const ProtectedRoutes = ({ children }) => {
   });
 
   useEffect(() => {
-    console.log("data?.getUser", data?.getUser, userData, loading);
+    // console.log("data?.getUser", data?.getUser, userData, loading);
     if (loading === false) {
       if (data?.getUser) {
         setUserData(data?.getUser);

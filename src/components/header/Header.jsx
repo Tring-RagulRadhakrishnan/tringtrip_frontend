@@ -18,21 +18,25 @@ const Header = () => {
   const { userData, setUserData } = useContext(userContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropDown, setDropDown] = useState(false);
+
+  const { data } = useQuery(GET_USER, { fetchPolicy: "no-cache" });
+  const [logout] = useMutation(LOGOUT, { fetchPolicy: "no-cache" });
+
+  // ✅ Set context once when data is fetched
+  useEffect(() => {
+    if (data?.getUser) {
+      setUserData(data.getUser);
+    }
+  }, [data]);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const { data,refetch } = useQuery(GET_USER, { fetchPolicy: "no-cache" });
-
-  const [logout] = useMutation(LOGOUT, { fetchPolicy: "no-cache" });
-
-  console.log('data?.getUser', data?.getUser)
-
-  setUserData(data?.getUser);
-
   const handleProfile = () => {
     setDropDown((prev) => !prev);
   };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest(".header-user-profile-icon")) {
@@ -41,6 +45,7 @@ const Header = () => {
     };
     document.addEventListener("click", handleClickOutside);
   }, []);
+
   useEffect(() => {
     if (searchTerm.length > 0) {
       setTimeout(() => {
@@ -63,12 +68,11 @@ const Header = () => {
       const response = await logout();
       setUserData(null);
       if (response?.data?.logout) {
-        toast.error("logout Successfull");
-        setUserData(null);
+        toast.error("Logout successful");
         navigate("/signin");
       }
     } catch (err) {
-      console.log("error log from logout", err);
+      console.log("Logout error:", err);
     }
   };
 
@@ -86,66 +90,58 @@ const Header = () => {
             <input
               type="text"
               placeholder="search to travel"
-              onChange={(e) => handleSearch(e)}
+              onChange={handleSearch}
             />
           </div>
 
           <div className="header-navigation-page-container">
             <p onClick={() => navigate("/allpackages")}>All Packages</p>
-            {userData?.role == "user" ? (
+            {userData?.role === "user" ? (
               <p onClick={() => navigate("/mybookings")}>My Bookings</p>
             ) : (
               <p onClick={() => navigate("/addpackage")}>Add Package</p>
             )}
-            <p onClick={() => handleFaqs()}>Faqs</p>
+            <p onClick={handleFaqs}>Faqs</p>
           </div>
         </>
       )}
-      
+
       <div className="header-user-name-container">
         {userData ? (
-          <span className="header-user-name">Hi,{userData?.name}</span>
-        ):(<div className="header-auth-contanier">
-          <p onClick={() => navigate("/signin")} className="header-auth">
-            Sign In
-          </p>
-          <p onClick={() => navigate("/signup")} className="header-auth">
-            Sign Up
-          </p>
-        </div>)}
+          <span className="header-user-name">Hi, {userData.name}</span>
+        ) : (
+          <div className="header-auth-contanier">
+            <p onClick={() => navigate("/signin")} className="header-auth">
+              Sign In
+            </p>
+            <p onClick={() => navigate("/signup")} className="header-auth">
+              Sign Up
+            </p>
+          </div>
+        )}
+
         <FaUser className="header-user-profile-icon" onClick={handleProfile} />
+
         {dropDown && (
           <div className="profile-dropdown">
             {userData ? (
               <>
-                <p
-                  onClick={() => navigate("/profile")}
-                  className="header-profile"
-                >
+                <p onClick={() => navigate("/profile")} className="header-profile">
                   Profile
                 </p>
-                <p
-                  onClick={() => navigate("/mybookings")}
-                  className="header-mybookings"
-                >
+                <p onClick={() => navigate("/mybookings")} className="header-mybookings">
                   My Bookings
                 </p>
-                <p onClick={() => handleLogout()} className="header-logout">
+                <p onClick={handleLogout} className="header-logout">
                   Logout
                 </p>
               </>
             ) : (
               <>
-                <p
-                  onClick={() => navigate("/signin")}
-                  className="header-profile"
-                >
+                <p onClick={() => navigate("/signin")} className="header-profile">
                   Sign In
                 </p>
-                <p
-                  onClick={() => navigate("/signup")}
-                  className="header-profile"
-                >
+                <p onClick={() => navigate("/signup")} className="header-profile">
                   Sign Up
                 </p>
               </>

@@ -15,7 +15,6 @@ const SearchPackage = () => {
     variables: { searchTerm },
     fetchPolicy: "no-cache",
   });
-  console.log(data?.getPackageBySearch);
   const packages = data?.getPackageBySearch;
 
   return (

@@ -79,7 +79,6 @@ const AddPackage = () => {
           toast.success("package updated");
           navigate("/home");
         }
-        console.log("update occuer");
       } else {
         const response = await createPackage({
           variables: {
@@ -95,7 +94,6 @@ const AddPackage = () => {
           toast.success("package created");
           navigate("/home");
         }
-        // console.log(">>>>>>>>>>>>add pack");
       }
     } catch (err) {
       console.log("log from create package", err);
@@ -192,25 +190,6 @@ const AddPackage = () => {
               {locations.map((place) => (
                 <option value={place}>{place}</option>
               ))}
-              {/* <option value="Thailand">Thailand</option>
-              <option value="Dubai">Dubai</option>
-              <option value="Vietnam">Vietnam</option>
-              <option value="Malaysia">Malaysia</option>
-              <option value="Maldives">Maldives</option>
-              <option value="Singapore">Singapore</option>
-              <option value="Bali">Bali</option>
-              <option value="Andaman">Andaman</option>
-              <option value="Goa">Goa</option>
-              <option value="Kerala">Kerala</option>
-              <option value="Himachal">Himachal</option>
-              <option value="Kashmir">Kashmir</option>
-              <option value="South India">South India</option>
-              <option value="North East">North East</option>
-              <option value="Uttarakhand">Uttarakhand</option>
-              <option value="Ladakh">Ladakh</option>
-              <option value="Bhutan">Bhutan</option>
-              <option value="Europe">Europe</option>
-              <option value="Almaty">Almaty</option> */}
             </select>
             {errors.location && (
               <p className="error">{errors.location.message}</p>

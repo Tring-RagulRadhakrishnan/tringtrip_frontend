@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 import { userContext } from "../../App";
 import { validation } from "../../utils/validations";
-
 import { UPDATE_USER } from "../../graphql/mutation/userMutation";
 
 import Input from "../common/Input";
@@ -16,14 +15,12 @@ import ProfileImg from "../../assets/profile_img.jpg";
 
 import "./Profile.css";
 
-
-
 const Profile = () => {
   const { userData, setUserData } = useContext(userContext);
+  const [userDetail, setUserDetail] = useState();
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
-  console.log(userData);
-  
+
   const {
     register,
     handleSubmit,
@@ -39,42 +36,47 @@ const Profile = () => {
 
   useEffect(() => {
     if (userData) {
-      reset({
-        name: userData.name,
-        email: userData.email,
-        phone_number: userData.phone_number,
-      });
+      setUserDetail(userData);
     }
   }, [userData]);
-  
 
-  const [updateUser,{data}] = useMutation(UPDATE_USER, { fetchPolicy: "network-only", onCompleted(data){
-    console.log("oncomplete",data)
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      name: data.updateUser.name,
-      phone_number: data.updateUser.phone_number,
-    }));
-  }});
+  useEffect(() => {
+    if (userDetail) {
+      reset({
+        name: userDetail.name,
+        email: userDetail.email,
+        phone_number: userDetail.phone_number,
+      });
+    }
+  }, [userDetail]);
 
-  const onSubmit = async (data) => {
+  const [updateUser, { data }] = useMutation(UPDATE_USER, {
+    fetchPolicy: "network-only",
+  });
+
+  useEffect(() => {
+    if (data?.updateUser) {
+      const updatedUser = {
+        ...userData,
+        name: data.updateUser.name,
+        phone_number: data.updateUser.phone_number,
+      };
+      setUserData(updatedUser);
+      setUserDetail(updatedUser);
+    }
+  }, [data?.updateUser]);
+
+  const onSubmit = async (formData) => {
     try {
       const response = await updateUser({
         variables: {
-          name: data.name,
-          phone_number: data.phone_number,
+          name: formData.name,
+          phone_number: formData.phone_number,
           user_id: userData?.user_id,
         },
       });
-  
+
       if (response?.data?.updateUser) {
-       
-        setUserData((prevUserData) => ({
-          ...prevUserData,
-          name: response.data.updateUser.name,
-          phone_number: response.data.updateUser.phone_number,
-        }));
-        
         toast.success("Profile updated successfully!");
         setEditMode(false);
       }
@@ -83,7 +85,6 @@ const Profile = () => {
       toast.error("Failed to update profile.");
     }
   };
-  
 
   const handleCancel = (e) => {
     e.preventDefault();
@@ -94,15 +95,6 @@ const Profile = () => {
     });
     setEditMode(false);
   };
-
-  useEffect(()=>{
-    if(data?.updateUser)
-    setUserData({
-      ...userData,
-      name: data?.updateUser.name,
-      phone_number: data?.updateUser.phone_number,
-    }); 
-  },[data?.updateUser])
 
   return (
     <div className="profile-page">
@@ -143,7 +135,9 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your phone number"
                 name="phone_number"
-                register={(phone_number) => register(phone_number, validation.phone_number)}
+                register={(phone) =>
+                  register(phone, validation.phone_number)
+                }
                 error={errors.phone_number}
                 disabled={!editMode}
               />
@@ -153,21 +147,14 @@ const Profile = () => {
                     <button type="submit" className="save-btn">
                       Save
                     </button>
-                    <button
-                      type="sumbit"
-                      onClick={(e)=>handleCancel(e)}
-                      className="cancel-btn"
-                    >
+                    <button onClick={handleCancel} className="cancel-btn">
                       Cancel
                     </button>
                   </div>
                 ) : (
                   <button
-                    type="button"   
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setEditMode(!editMode);
-                    }}
+                    type="button"
+                    onClick={() => setEditMode(true)}
                     className="edit-btn"
                   >
                     Edit

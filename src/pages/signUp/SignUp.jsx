@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { toast } from "react-toastify";
-import bcrypt from "bcryptjs";
 
 import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
 
@@ -59,7 +58,7 @@ const SignUp = () => {
       <h1 className="auth-title">Create Account</h1>
       <form className="signup-form" onSubmit={handleSubmit(submit)}>
         <div className="form-body">
-          <Input
+          <Input 
             label="Name"
             type="text"
             placeholder="Name"
