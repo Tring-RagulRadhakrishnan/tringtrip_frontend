@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { CREATE_USER } from "../../graphql/mutation/userMutation.jsx";
 
 import { validation } from "../../utils/validations.js";
-import { EncryptPassword } from "../../components/EncryptPassword.jsx";
+import { EncryptPassword } from "../../utils/EncryptPassword.jsx";
 
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button.jsx";

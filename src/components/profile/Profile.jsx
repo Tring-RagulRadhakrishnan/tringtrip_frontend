@@ -25,6 +25,7 @@ const Profile = () => {
     register,
     handleSubmit,
     reset,
+    
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -115,7 +116,8 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your name"
                 name="name"
-                register={(name) => register(name, validation.name)}
+                register={register}
+                validation={validation.name}
                 error={errors.name}
                 disabled={!editMode}
               />
@@ -125,7 +127,7 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your email"
                 name="email"
-                register={(email) => register(email, validation.email)}
+                register={register}
                 error={null}
                 disabled
               />
@@ -135,9 +137,8 @@ const Profile = () => {
                 type="text"
                 placeholder="Enter your phone number"
                 name="phone_number"
-                register={(phone) =>
-                  register(phone, validation.phone_number)
-                }
+                register={register}
+                validation={validation.phone_number}
                 error={errors.phone_number}
                 disabled={!editMode}
               />

@@ -4,7 +4,7 @@ import SignUp from "../pages/signUp/SignUp";
 import SignIn from "../pages/signIn/SignIn";
 import Home from "../pages/home/Home";
 import Auth from "../components/auth/Auth";
-import Package from "../pages/tripPack/TripPack";
+import TripPack from "../pages/tripPack/TripPack";
 import AllPackages from "../pages/allPackages/AllPackages";
 import AddPackage from "../pages/addPackage/AddPackage";
 import BookPackage from "../pages/bookPackage/BookPackage";
@@ -24,7 +24,7 @@ const AppRoutes = () => {
           <Route path="/signin" element={<SignIn />} />
         </Route>
         <Route path="/home" element={<Home />} />
-        <Route path="/package/:location" element={<Package />} />
+        <Route path="/trippack/:location" element={<TripPack />} />
         <Route path="/allpackages" element={<AllPackages />} />
         <Route
           path="/addpackage"

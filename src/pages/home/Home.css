@@ -22,7 +22,7 @@
     display: flex;
     column-gap: 3%;
     overflow-x: scroll;
-    scrollbar-width: none;
+    scrollbar-width: thin;
     position: relative;
     padding-bottom: 30px;
 }

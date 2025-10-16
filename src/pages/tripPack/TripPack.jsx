@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -9,7 +9,7 @@ import PackageCard from "../../components/cards/PackageCard";
 import "./TripPack.css";
 
 
-const Package = () => {
+const TripPack = () => {
   const location = useLocation();
   const tourist_place = location?.state;
 
@@ -18,14 +18,11 @@ const Package = () => {
     fetchPolicy: "no-cache",
   });
 
-
-  console.log(data?.getPackageByLocation);
   
 
   const packages = data?.getPackageByLocation;
   return (
     <div className="package-section-outer-container">
-      {/* Cover Image Section */}
       <section className="package-cover-image-container">
         <img
           src={tourist_place?.cover_image}
@@ -51,4 +48,4 @@ const Package = () => {
   );
 };
 
-export default Package;
+export default TripPack;

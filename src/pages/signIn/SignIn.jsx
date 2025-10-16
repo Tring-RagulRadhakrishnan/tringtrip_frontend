@@ -5,7 +5,7 @@ import { useLazyQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 
 import { LOGIN } from "../../graphql/query/UserQuery.jsx";
-import { EncryptPassword } from "../../components/EncryptPassword.jsx";
+import { EncryptPassword } from "../../utils/EncryptPassword.jsx";
 
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button.jsx";

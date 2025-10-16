@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const LoctionCard = ({locationCard,category}) => {
     const navigate = useNavigate();
   const handleCard = (card)=>{
-      navigate(`/package/${card.location}`,{state:card})
+      navigate(`/trippack/${card.location}`,{state:card})
   }
 
 

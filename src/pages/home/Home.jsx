@@ -47,7 +47,6 @@ const Home = () => {
   }, [lowPack]);
 
   const handleBookNow = (data)=>{
-    // console.log(data?.package_id,data?.title,data?.days,data?.visit_place,data?.price);
     
     navigate("/bookpackage",{state:data})
   }

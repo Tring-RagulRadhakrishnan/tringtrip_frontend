@@ -19,10 +19,15 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropDown, setDropDown] = useState(false);
 
+  console.log("context", userData);
+  
+
   const { data } = useQuery(GET_USER, { fetchPolicy: "no-cache" });
   const [logout] = useMutation(LOGOUT, { fetchPolicy: "no-cache" });
 
-  // ✅ Set context once when data is fetched
+  // console.log("data?.getUser",data?.getUser);
+  
+
   useEffect(() => {
     if (data?.getUser) {
       setUserData(data.getUser);
@@ -119,9 +124,10 @@ const Header = () => {
             </p>
           </div>
         )}
-
+      {userData && (
         <FaUser className="header-user-profile-icon" onClick={handleProfile} />
-
+      )
+      }
         {dropDown && (
           <div className="profile-dropdown">
             {userData ? (

@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 export const userContext = createContext();
 
 function App() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(null);
 
   return (
     <>
